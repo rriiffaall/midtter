@@ -15,7 +15,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    midtter.init("SB-Mid-client-f82DWb-NJCZV_iPJ", "http://foodspotapi/v1/");
+    midtter.init("SB-Mid-client-f82DWb-NJCZV_iPJ", "http://api-dev.foodspot.co.id/v1/");
     midtter.setFinishCallback(_callback);
   }
 
@@ -25,22 +25,23 @@ class _MyAppState extends State<MyApp> {
     });
     midtter
         .makePayment(
-      MidtransTransaction(
-          "order_id1234567890",
-          7500,
-          MidtransCustomer(
-              "Apin", "Prastya", "apin.klas@gmail.com", "085235419949"),
-          [
-            MidtransItem(
-              "5c18ea1256f67560cb6a00cdde3c3c7a81026c29",
+          MidtransTransaction(
+              "order_id1234567890",
               7500,
-              2,
-              "USB FlashDisk",
-            )
-          ],
-          skipCustomer: true,
-          customField1: "ANYCUSTOMFIELD"),
-    )
+              MidtransCustomer(
+                  "Apin", "Prastya", "apin.klas@gmail.com", "085235419949"),
+              [
+                MidtransItem(
+                  "5c18ea1256f67560cb6a00cdde3c3c7a81026c29",
+                  7500,
+                  2,
+                  "USB FlashDisk",
+                )
+              ],
+              skipCustomer: true,
+              customField1: "ANYCUSTOMFIELD",
+              paymentMethod: "gopay"),
+        )
         .catchError((err) => print("ERROR $err"));
   }
 
@@ -62,9 +63,9 @@ class _MyAppState extends State<MyApp> {
           child: isMakePayment
               ? CircularProgressIndicator()
               : RaisedButton(
-            child: Text("Make Payment"),
-            onPressed: () => _makePayment(),
-          ),
+                  child: Text("Make Payment"),
+                  onPressed: () => _makePayment(),
+                ),
         ),
       ),
     );

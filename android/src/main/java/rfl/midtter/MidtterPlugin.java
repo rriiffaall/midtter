@@ -11,6 +11,7 @@ import com.midtrans.sdk.corekit.core.themes.CustomColorTheme;
 import com.midtrans.sdk.corekit.models.CustomerDetails;
 import com.midtrans.sdk.corekit.models.ItemDetails;
 import com.midtrans.sdk.corekit.models.snap.TransactionResult;
+import com.midtrans.sdk.corekit.core.PaymentMethod;
 import com.midtrans.sdk.uikit.SdkUIFlowBuilder;
 
 import org.json.JSONArray;
@@ -110,9 +111,56 @@ public class MidtterPlugin implements MethodCallHandler {
         setting.setSkipCustomerDetailsPages(json.getBoolean("skip_customer"));
       MidtransSDK.getInstance().setUIKitCustomSetting(setting);
       MidtransSDK.getInstance().setTransactionRequest(transactionRequest);
-      MidtransSDK.getInstance().startPaymentUiFlow(context);
+
+      if(json.has("payment_method") && json.getString("payment_method") == "NONE"){
+        MidtransSDK.getInstance().startPaymentUiFlow(context);
+      }else{  
+        PaymentMethod paymentMethod = PaymentMethod.CREDIT_CARD;
+        if(json.getString("payment_method") == "gopay"){
+          paymentMethod = PaymentMethod.GO_PAY;
+        }else if(json.getString("payment_method") == "cc"){
+          paymentMethod = PaymentMethod.CREDIT_CARD;
+        }
+        MidtransSDK.getInstance().startPaymentUiFlow(context,paymentMethod);
+      }
     } catch(Exception e) {
       Log.d(TAG, "ERROR " + e.getMessage());
     }
   }
 }
+
+// PaymentMethod.CREDIT_CARD
+// //bank transfer
+// PaymentMethod.BANK_TRANSFER    
+// //bank transfer BCA
+// PaymentMethod.BANK_TRANSFER_BCA
+// //bank transfer Mandiri
+// PaymentMethod.BANK_TRANSFER_MANDIRI
+// //bank transfer Permata
+// PaymentMethod.BANK_TRANSFER_PERMATA
+// //bank transfer BNI
+// PaymentMethod.BANK_TRANSFER_BNI
+// //bank transfer other
+// PaymentMethod.BANK_TRANSFER_OTHER
+// //GO-PAY
+// PaymentMethod.GO_PAY
+// //BCA KlikPay
+// PaymentMethod.BCA_KLIKPAY
+// //KlikBCA
+// PaymentMethod.KLIKBCA
+// //Mandiri Clickpay
+// PaymentMethod.MANDIRI_CLICKPAY
+// //Mandiri e-cash / LINE Pay
+// PaymentMethod.MANDIRI_ECASH
+// //e-Pay BRI
+// PaymentMethod.EPAY_BRI
+// //CIMB Clicks
+// PaymentMethod.CIMB_CLICKS
+// //Indomaret
+// PaymentMethod.INDOMARET
+// //Danamon online
+// PaymentMethod.DANAMON_ONLINE
+// //Akulaku
+// PaymentMethod.AKULAKU
+// //Alfamart
+// PaymentMethod.ALFAMART
