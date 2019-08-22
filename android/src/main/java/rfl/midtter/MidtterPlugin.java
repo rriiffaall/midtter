@@ -111,14 +111,15 @@ public class MidtterPlugin implements MethodCallHandler {
         setting.setSkipCustomerDetailsPages(json.getBoolean("skip_customer"));
       MidtransSDK.getInstance().setUIKitCustomSetting(setting);
       MidtransSDK.getInstance().setTransactionRequest(transactionRequest);
-
-      if(json.has("payment_method") && json.getString("payment_method") == "all"){
+      if(json.has("payment_method") && json.getString("payment_method").equals("all")){
         MidtransSDK.getInstance().startPaymentUiFlow(context);
       }else{
-        if(json.getString("payment_method") == "gopay"){
-          PaymentMethod paymentMethod = PaymentMethod.CREDIT_CARD;
+        if(json.getString("payment_method").equals("gopay")){
+          Log.d(TAG, "if gopay");
+          PaymentMethod paymentMethod = PaymentMethod.GO_PAY;
           MidtransSDK.getInstance().startPaymentUiFlow(context,paymentMethod);
-        }else if(json.getString("payment_method") == "cc"){
+        }else if(json.getString("payment_method").equals("cc")){
+          Log.d(TAG, "if cc");
           PaymentMethod paymentMethod = PaymentMethod.CREDIT_CARD;
           MidtransSDK.getInstance().startPaymentUiFlow(context,paymentMethod);
         }
