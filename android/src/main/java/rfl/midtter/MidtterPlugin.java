@@ -112,7 +112,7 @@ public class MidtterPlugin implements MethodCallHandler {
       MidtransSDK.getInstance().setUIKitCustomSetting(setting);
       MidtransSDK.getInstance().setTransactionRequest(transactionRequest);
 
-      if(json.has("payment_method") && json.getString("payment_method") == "NONE"){
+      if(json.has("payment_method") && json.getString("payment_method") == "all"){
         MidtransSDK.getInstance().startPaymentUiFlow(context);
       }else{  
         PaymentMethod paymentMethod = PaymentMethod.CREDIT_CARD;

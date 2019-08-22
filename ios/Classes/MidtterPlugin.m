@@ -82,7 +82,13 @@ FlutterMethodChannel* channel;
           [[MidtransMerchantClient shared] requestTransactionTokenWithTransactionDetails:transDetail itemDetails:arr customerDetails:custDetail customField:arrayOfCustomField binFilter:nil blacklistBinFilter:nil transactionExpireTime:nil completion:^(MidtransTransactionTokenResponse *token, NSError *error)
            {
                if (token) {
-                   MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController new] initWithToken:token andPaymentFeature:MidtransPaymentFeatureCreditCard];
+                   if(json[@"payment_method"] == "all"){
+                        MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController new] initWithToken:token];
+                   }else if(json[@"payment_method"] == "gopay"){
+                        MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController new] initWithToken:token andPaymentFeature:MidtransPaymentFeatureGOPAY];
+                   }else if(json[@"payment_method"] == "cc"){
+                        MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController new] initWithToken:token andPaymentFeature:MidtransPaymentFeatureCreditCard];
+                   }
                    vc.paymentDelegate = delegate;
                    UIViewController *viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
                    [viewController presentViewController:vc animated:YES completion:nil];
