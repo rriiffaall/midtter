@@ -114,14 +114,14 @@ public class MidtterPlugin implements MethodCallHandler {
 
       if(json.has("payment_method") && json.getString("payment_method") == "all"){
         MidtransSDK.getInstance().startPaymentUiFlow(context);
-      }else{  
-        PaymentMethod paymentMethod = PaymentMethod.CREDIT_CARD;
+      }else{
         if(json.getString("payment_method") == "gopay"){
-          paymentMethod = PaymentMethod.GO_PAY;
+          PaymentMethod paymentMethod = PaymentMethod.CREDIT_CARD;
+          MidtransSDK.getInstance().startPaymentUiFlow(context,paymentMethod);
         }else if(json.getString("payment_method") == "cc"){
-          paymentMethod = PaymentMethod.CREDIT_CARD;
+          PaymentMethod paymentMethod = PaymentMethod.CREDIT_CARD;
+          MidtransSDK.getInstance().startPaymentUiFlow(context,paymentMethod);
         }
-        MidtransSDK.getInstance().startPaymentUiFlow(context,paymentMethod);
       }
     } catch(Exception e) {
       Log.d(TAG, "ERROR " + e.getMessage());
