@@ -34,13 +34,13 @@ class _MyAppState extends State<MyApp> {
                 MidtransItem(
                   "5c18ea1256f67560cb6a00cdde3c3c7a81026c29",
                   7500,
-                  2,
+                  1,
                   "USB FlashDisk",
                 )
               ],
               skipCustomer: true,
               customField1: "ANYCUSTOMFIELD",
-              paymentMethod: "gopay"),
+              paymentMethod: "cc"),
         )
         .catchError((err) => print("ERROR $err"));
   }
