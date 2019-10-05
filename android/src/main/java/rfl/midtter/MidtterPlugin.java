@@ -9,6 +9,9 @@ import com.midtrans.sdk.corekit.core.TransactionRequest;
 import com.midtrans.sdk.corekit.core.UIKitCustomSetting;
 import com.midtrans.sdk.corekit.core.themes.CustomColorTheme;
 import com.midtrans.sdk.corekit.models.CustomerDetails;
+import com.midtrans.sdk.corekit.core.LocalDataHandler;
+import com.midtrans.sdk.corekit.models.UserAddress;
+import com.midtrans.sdk.corekit.models.UserDetail;
 import com.midtrans.sdk.corekit.models.ItemDetails;
 import com.midtrans.sdk.corekit.models.snap.TransactionResult;
 import com.midtrans.sdk.corekit.core.PaymentMethod;
@@ -103,6 +106,22 @@ public class MidtterPlugin implements MethodCallHandler {
       cus.setEmail(cJson.getString("email"));
       cus.setPhone(cJson.getString("phone"));
       transactionRequest.setCustomerDetails(cus);
+
+      UserDetail userDetail = new UserDetail();
+      userDetail.setUserFullName(cJson.getString("first_name"));
+      userDetail.setEmail(cJson.getString("email"));
+      userDetail.setPhoneNumber(cJson.getString("phone"));
+      ArrayList<UserAddress> userAddresses = new ArrayList<>();
+      UserAddress userAddress = new UserAddress();
+      userAddress.setAddress("");
+      userAddress.setCity("");
+      userAddress.setAddressType(com.midtrans.sdk.corekit.core.Constants.ADDRESS_TYPE_BOTH);
+      userAddress.setZipcode("");
+      userAddress.setCountry("");
+      userAddresses.add(userAddress);
+      userDetail.setUserAddresses(userAddresses);
+      LocalDataHandler.saveObject("user_details", userDetail);
+
       if(json.has("custom_field_1"))
         transactionRequest.setCustomField1(json.getString("custom_field_1"));
       transactionRequest.setItemDetails(itemList);
