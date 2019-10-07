@@ -35,7 +35,7 @@ android {
     }
 
     dependencies {
-        debugImplementation 'com.midtrans:uikit:1.23.0-SANDBOX'
-        releaseImplementation 'com.midtrans:uikit:1.23.0'
+        debugImplementation 'com.midtrans:uikit:1.23.1-SANDBOX'
+        releaseImplementation 'com.midtrans:uikit:1.23.1'
     }
 }

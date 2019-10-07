@@ -56,6 +56,7 @@ FlutterMethodChannel* channel;
       [CONFIG setClientKey:key environment:serverEnvirontment merchantServerURL:url];
       return result(0);
   } else if([@"payment" isEqualToString:call.method]) {
+      CC_CONFIG.secure3DEnabled = YES;
       NSString *str = call.arguments;
       id delegate = [MidtterPayment alloc];
       NSError *error = nil;

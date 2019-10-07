@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
               "order_id1234567890",
               7500,
               MidtransCustomer(
-                  "Apin", "Prastya", "apin.klas@gmail.com", "085235419949"),
+                  "RFL", "rifal", "rifal@gmail.com", "081277773887"),
               [
                 MidtransItem(
                   "5c18ea1256f67560cb6a00cdde3c3c7a81026c29",

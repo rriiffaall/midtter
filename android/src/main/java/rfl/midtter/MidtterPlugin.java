@@ -14,6 +14,8 @@ import com.midtrans.sdk.corekit.models.UserAddress;
 import com.midtrans.sdk.corekit.models.UserDetail;
 import com.midtrans.sdk.corekit.models.ItemDetails;
 import com.midtrans.sdk.corekit.models.snap.TransactionResult;
+import com.midtrans.sdk.corekit.models.snap.CreditCard;
+import com.midtrans.sdk.corekit.models.snap.Authentication;
 import com.midtrans.sdk.corekit.core.PaymentMethod;
 import com.midtrans.sdk.uikit.SdkUIFlowBuilder;
 
@@ -121,6 +123,10 @@ public class MidtterPlugin implements MethodCallHandler {
       userAddresses.add(userAddress);
       userDetail.setUserAddresses(userAddresses);
       LocalDataHandler.saveObject("user_details", userDetail);
+      
+      CreditCard creditCardOptions = new CreditCard();
+      creditCardOptions.setAuthentication(Authentication.AUTH_3DS);
+      transactionRequest.setCreditCard(creditCardOptions);
 
       if(json.has("custom_field_1"))
         transactionRequest.setCustomField1(json.getString("custom_field_1"));
