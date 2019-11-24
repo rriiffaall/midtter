@@ -15,7 +15,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    midtter.init("SB-Mid-client-f82DWb-NJCZV_iPJ", "http://api-dev.foodspot.co.id/v1/");
+    midtter.init("YOUR_KEY", "YOUR_API_SERVICE");
     midtter.setFinishCallback(_callback);
   }
 
